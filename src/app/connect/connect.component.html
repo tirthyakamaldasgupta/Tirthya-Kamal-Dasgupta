@@ -1,0 +1,82 @@
+<div
+  class="d-flex justify-content-center align-items-center"
+  style="height: 100vh"
+>
+  <div class="row">
+    <div class="col">
+      <h6>Drop me an email on</h6>
+      <a
+        class="btn btn-danger w-100 email-btn"
+        href="mailto:dasguptatirthyakamal@gmail.com"
+        mdbRipple
+        >dasguptatirthyakamal&#64;gmail.com</a
+      >
+      <br />
+      <br />
+      <a
+        class="btn btn-info w-100 email-btn"
+        href="mailto:dasguptatirthyakamal@outlook.com"
+        mdbRipple
+        >dasguptatirthyakamal&#64;outlook.com</a
+      >
+      <br />
+      <br />
+      <h6>Call or WhatsApp me on</h6>
+      <a class="btn btn-success w-100" href="tel:+91 8240693916" mdbRipple
+        >+91 8240693916</a
+      >
+      <br />
+      <br />
+      <a class="btn btn-success w-100" href="tel:+91 8017352824" mdbRipple
+        >+91 8017352824</a
+      >
+      <br />
+      <br />
+      <h6>If you live nearby, we can always sit over a cup of at</h6>
+      <p>
+        Block B and C, New Tollygunge, Aurobindo Park, South Kolkata, West
+        Bengal 700093
+      </p>
+      <h6>Follow me on</h6>
+      <a
+        *ngFor="let socialAccount of socialAccounts"
+        href="{{ socialAccount.link }}"
+        target="_blank"
+        ><fa-icon
+          [icon]="socialAccount.icon"
+          size="2xl"
+          [ngStyle]="{ color: socialAccount.color }"
+        />
+      </a>
+    </div>
+    <div class="col">
+      <form>
+        <mdb-form-control class="mb-4">
+          <input
+            mdbInput
+            type="email"
+            id="form1Example1"
+            class="form-control"
+          />
+          <label mdbLabel class="form-label" for="form1Example1"
+            >Email address</label
+          >
+        </mdb-form-control>
+        <mdb-form-control class="mb-4">
+          <input
+            mdbInput
+            type="password"
+            id="form1Example2"
+            class="form-control"
+          />
+          <label mdbLabel class="form-label" for="form1Example2"
+            >Password</label
+          >
+        </mdb-form-control>
+        <button mdbRipple type="button" class="btn btn-primary btn-block">
+          Sign in
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
