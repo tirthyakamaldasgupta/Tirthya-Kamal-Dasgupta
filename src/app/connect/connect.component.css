@@ -1,7 +1,55 @@
+@media (min-width: 0px) {
+  .d-flex {
+    height: 160vh;
+  }
+}
+
+/* @media (min-width: 350px) {
+    .d-flex {
+      height: 125vh;
+    }
+  } */
+
+@media (min-width: 414px) {
+  .d-flex {
+    height: 120vh;
+  }
+}
+
+@media (min-width: 576px) {
+  .d-flex {
+    height: 110vh;
+  }
+}
+
+@media (min-width: 768px) {
+  .d-flex {
+    height: 90vh;
+  }
+}
+
+@media (min-width: 992px) {
+  .d-flex {
+    height: 90vh;
+  }
+}
+
+@media (min-width: 1200px) {
+  .d-flex {
+    height: 90vh;
+  }
+}
+
+@media (min-width: 1400px) {
+  .d-flex {
+    height: 90vh;
+  }
+}
+
 .email-btn {
-    text-transform: lowercase !important;
+  text-transform: lowercase !important;
 }
 
 fa-icon {
-    margin-right: 10px;
+  margin-right: 10px;
 }
