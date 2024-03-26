@@ -1,15 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { MdbFormsModule } from 'mdb-angular-ui-kit/forms';
-import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
-import {
-  faGithub,
-  faHashnode,
-  faLinkedin,
-  faMedium,
-  faYoutube,
-} from '@fortawesome/free-brands-svg-icons';
 import {
   AbstractControl,
   FormControl,
@@ -17,7 +7,17 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faGithub,
+  faHashnode,
+  faLinkedin,
+  faMedium,
+  faYoutube,
+} from '@fortawesome/free-brands-svg-icons';
+import { MdbFormsModule } from 'mdb-angular-ui-kit/forms';
+import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
+import { EnquiryFormService } from '../enquiry-form.service';
 
 interface SocialAccount {
   icon: any;
@@ -69,9 +69,7 @@ export class ConnectComponent implements OnInit {
 
   enquiryForm!: FormGroup;
 
-  enquiryFormSubmissionEndpoint = import.meta.env['NG_APP_ENQUIRY_FORM_SUBMISSION_ENDPOINT'];
-
-  constructor(private httpClient: HttpClient) {}
+  constructor(private enquiryFormService: EnquiryFormService) {}
 
   ngOnInit(): void {
     this.enquiryForm = new FormGroup({
@@ -82,8 +80,6 @@ export class ConnectComponent implements OnInit {
       company: new FormControl(''),
       message: new FormControl('', [Validators.required]),
     });
-
-    console.log(this.enquiryFormSubmissionEndpoint);
   }
 
   get firstName(): AbstractControl {
@@ -184,31 +180,14 @@ export class ConnectComponent implements OnInit {
   }
 
   onSubmit(): boolean {
-    console.log(this.enquiryForm);
-
-    const currentDate = new Date();
-    const localTimestampInEpoch =
-      currentDate.getTime() - currentDate.getTimezoneOffset() * 60000;
-
-    this.enquiryForm.value.timeStamp = localTimestampInEpoch;
-
-    const headers = {
-      'Content-Type': 'application/json; charset=utf-8',
-    };
-
-    console.log(this.enquiryForm.value);
-
-    this.httpClient.post(
-      this.enquiryFormSubmissionEndpoint,
-      this.enquiryForm.value,
-      {
-        headers: headers,
+    this.enquiryFormService.submit(this.enquiryForm.value).subscribe(
+      (response) => {
+        console.log(response);
+      },
+      (error) => {
+        console.error(error);
       }
-    ).subscribe(response => {
-      console.log(response);
-    }, error => {
-      console.error(error);
-    });;
+    );
 
     return true;
   }
