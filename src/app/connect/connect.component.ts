@@ -18,6 +18,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+require('dotenv').config({
+  path: 'src/environments/.env',
+});
 
 interface SocialAccount {
   icon: any;
@@ -182,7 +185,23 @@ export class ConnectComponent implements OnInit {
   onSubmit(): boolean {
     console.log(this.enquiryForm);
 
-    this.httpClient.post('https://www.google.com', this.enquiryForm.value);
+    const currentDate = new Date();
+    const localTimestampInEpoch =
+      currentDate.getTime() - currentDate.getTimezoneOffset() * 60000;
+
+    this.enquiryForm.value.timeStamp = localTimestampInEpoch;
+
+    const headers = {
+      'Content-Type': 'application/json; charset=utf-8',
+    };
+
+    this.httpClient.post(
+      `${process.env['ENQUIRY_FORM_SUBMISSION_ENDPOINT']}`,
+      this.enquiryForm.value,
+      {
+        headers: headers,
+      }
+    );
 
     return true;
   }
