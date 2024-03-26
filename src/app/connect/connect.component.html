@@ -165,7 +165,7 @@
             >Looks good!</mdb-success
           >
         </mdb-form-control>
-        <button mdbRipple type="submit" class="btn btn-primary btn-block">
+        <button mdbRipple type="submit" class="btn btn-primary btn-block" [disabled]="enquiryForm.invalid">
           Submit enquiry
         </button>
       </form>

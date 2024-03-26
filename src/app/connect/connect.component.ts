@@ -17,15 +17,12 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
 interface SocialAccount {
   icon: any;
   color: string;
   link: string;
-}
-
-interface ControlFieldNameMap {
-  [controlName: string]: string;
 }
 
 @Component({
@@ -72,14 +69,7 @@ export class ConnectComponent implements OnInit {
 
   enquiryForm!: FormGroup;
 
-  controlFieldNameMap: ControlFieldNameMap = {
-    firstName: 'First name',
-    middleName: 'Middle name',
-    lastName: 'Last name',
-    email: 'Email',
-    company: 'Company',
-    message: 'Message',
-  };
+  constructor(private httpClient: HttpClient) {}
 
   ngOnInit(): void {
     this.enquiryForm = new FormGroup({
@@ -189,7 +179,11 @@ export class ConnectComponent implements OnInit {
     return errorMessage;
   }
 
-  onSubmit(): void {
+  onSubmit(): boolean {
     console.log(this.enquiryForm);
+
+    this.httpClient.post('https://www.google.com', this.enquiryForm.value);
+
+    return true;
   }
 }
