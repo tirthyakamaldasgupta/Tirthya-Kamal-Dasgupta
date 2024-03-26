@@ -18,9 +18,6 @@ import {
   Validators,
 } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-require('dotenv').config({
-  path: 'src/environments/.env',
-});
 
 interface SocialAccount {
   icon: any;
@@ -72,6 +69,8 @@ export class ConnectComponent implements OnInit {
 
   enquiryForm!: FormGroup;
 
+  enquiryFormSubmissionEndpoint = import.meta.env['NG_APP_ENQUIRY_FORM_SUBMISSION_ENDPOINT'];
+
   constructor(private httpClient: HttpClient) {}
 
   ngOnInit(): void {
@@ -83,6 +82,8 @@ export class ConnectComponent implements OnInit {
       company: new FormControl(''),
       message: new FormControl('', [Validators.required]),
     });
+
+    console.log(this.enquiryFormSubmissionEndpoint);
   }
 
   get firstName(): AbstractControl {
@@ -195,13 +196,19 @@ export class ConnectComponent implements OnInit {
       'Content-Type': 'application/json; charset=utf-8',
     };
 
+    console.log(this.enquiryForm.value);
+
     this.httpClient.post(
-      `${process.env['ENQUIRY_FORM_SUBMISSION_ENDPOINT']}`,
+      this.enquiryFormSubmissionEndpoint,
       this.enquiryForm.value,
       {
         headers: headers,
       }
-    );
+    ).subscribe(response => {
+      console.log(response);
+    }, error => {
+      console.error(error);
+    });;
 
     return true;
   }
