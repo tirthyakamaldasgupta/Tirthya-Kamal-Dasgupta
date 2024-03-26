@@ -10,7 +10,13 @@ import {
   faMedium,
   faYoutube,
 } from '@fortawesome/free-brands-svg-icons';
-import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 
 interface SocialAccount {
   icon: any;
@@ -18,10 +24,20 @@ interface SocialAccount {
   link: string;
 }
 
+interface ControlFieldNameMap {
+  [controlName: string]: string;
+}
+
 @Component({
   selector: 'app-connect',
   standalone: true,
-  imports: [CommonModule, MdbFormsModule, ReactiveFormsModule, MdbValidationModule, FontAwesomeModule],
+  imports: [
+    CommonModule,
+    MdbFormsModule,
+    ReactiveFormsModule,
+    MdbValidationModule,
+    FontAwesomeModule,
+  ],
   templateUrl: './connect.component.html',
   styleUrl: './connect.component.css',
 })
@@ -56,23 +72,23 @@ export class ConnectComponent implements OnInit {
 
   enquiryForm!: FormGroup;
 
+  controlFieldNameMap: ControlFieldNameMap = {
+    firstName: 'First name',
+    middleName: 'Middle name',
+    lastName: 'Last name',
+    email: 'Email',
+    company: 'Company',
+    message: 'Message',
+  };
+
   ngOnInit(): void {
     this.enquiryForm = new FormGroup({
-      firstName: new FormControl('', [
-        Validators.required,
-        Validators.minLength(1),
-      ]),
-      middleName: new FormControl('', [Validators.minLength(1)]),
-      lastName: new FormControl('', [
-        Validators.required,
-        Validators.minLength(1),
-      ]),
+      firstName: new FormControl('', [Validators.required]),
+      middleName: new FormControl(''),
+      lastName: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required, Validators.email]),
-      company: new FormControl('', [Validators.minLength(1)]),
-      message: new FormControl('', [
-        Validators.required,
-        Validators.minLength(1),
-      ]),
+      company: new FormControl(''),
+      message: new FormControl('', [Validators.required]),
     });
   }
 
@@ -100,5 +116,80 @@ export class ConnectComponent implements OnInit {
     return this.enquiryForm.get('message')!;
   }
 
-  onSubmit(): void {}
+  getFirstNameErrorMessage(): string {
+    const control = this.enquiryForm.get('firstName');
+    let errorMessage = '';
+
+    if (control?.invalid && (control.dirty || control.touched)) {
+      if (control.errors?.['required']) {
+        errorMessage = 'First name is required';
+      } else if (control.errors?.['minlength']) {
+        errorMessage = `Minimum length should be ${control.errors['minlength'].requiredLength}`;
+      }
+    }
+
+    return errorMessage;
+  }
+
+  getLastNameErrorMessage(): string {
+    const control = this.enquiryForm.get('lastName');
+    let errorMessage = '';
+
+    if (control?.invalid && (control.dirty || control.touched)) {
+      if (control.errors?.['required']) {
+        errorMessage = 'Last name is required';
+      } else if (control.errors?.['minlength']) {
+        errorMessage = `Minimum length should be ${control.errors['minlength'].requiredLength}`;
+      }
+    }
+
+    return errorMessage;
+  }
+
+  getEmailErrorMessage(): string {
+    const control = this.enquiryForm.get('email');
+    let errorMessage = '';
+
+    if (control?.invalid && (control.dirty || control.touched)) {
+      if (control.errors?.['required']) {
+        errorMessage = 'Email is required';
+      } else if (control.errors?.['email']) {
+        errorMessage = 'Invalid email format';
+      }
+    }
+
+    return errorMessage;
+  }
+
+  getCompanyErrorMessage(): string {
+    const control = this.enquiryForm.get('company');
+    let errorMessage = '';
+
+    if (control?.invalid && (control.dirty || control.touched)) {
+      if (control.errors?.['minlength']) {
+        errorMessage = `Minimum length should be ${control.errors['minlength'].requiredLength}`;
+      }
+    }
+
+    return errorMessage;
+  }
+
+  getMessageErrorMessage(): string {
+    const control = this.enquiryForm.get('message');
+    let errorMessage = '';
+
+    if (control?.invalid && (control.dirty || control.touched)) {
+      if (control.errors?.['required']) {
+        errorMessage = 'Message is required';
+      } else if (control.errors?.['minlength']) {
+        errorMessage = `Minimum length should be ${control.errors['minlength'].requiredLength}`;
+      }
+    }
+
+    return errorMessage;
+  }
+
+  onSubmit(): void {
+    console.log(this.enquiryForm);
+  }
 }

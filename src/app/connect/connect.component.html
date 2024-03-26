@@ -67,7 +67,7 @@
             *ngIf="
               firstName?.invalid && (firstName?.dirty || firstName?.touched)
             "
-            >First name is required</mdb-error
+            >{{ getFirstNameErrorMessage() }}</mdb-error
           >
           <mdb-success
             *ngIf="firstName?.valid && (firstName?.dirty || firstName?.touched)"
@@ -84,12 +84,6 @@
           />
           <label mdbLabel class="form-label" for="middle_name_input"
             >Middle name</label
-          >
-          <mdb-error
-            *ngIf="
-              middleName?.invalid && (middleName?.dirty || middleName?.touched)
-            "
-            >Middle name is required</mdb-error
           >
           <mdb-success
             *ngIf="
@@ -111,7 +105,7 @@
           >
           <mdb-error
             *ngIf="lastName?.invalid && (lastName?.dirty || lastName?.touched)"
-            >Last name is required</mdb-error
+            >{{ getLastNameErrorMessage() }}</mdb-error
           >
           <mdb-success
             *ngIf="lastName?.valid && (lastName?.dirty || lastName?.touched)"
@@ -127,8 +121,9 @@
             formControlName="email"
           />
           <label mdbLabel class="form-label" for="email_input">Email</label>
-          <mdb-error *ngIf="email?.invalid && (email?.dirty || email?.touched)"
-            >Email is required</mdb-error
+          <mdb-error
+            *ngIf="email?.invalid && (email?.dirty || email?.touched)"
+            >{{ getEmailErrorMessage() }}</mdb-error
           >
           <mdb-success *ngIf="email?.valid && (email?.dirty || email?.touched)"
             >Looks good!</mdb-success
@@ -145,7 +140,7 @@
           <label mdbLabel class="form-label" for="company_input">Company</label>
           <mdb-error
             *ngIf="company?.invalid && (company?.dirty || company?.touched)"
-            >Company is required</mdb-error
+            >{{ getCompanyErrorMessage() }}</mdb-error
           >
           <mdb-success
             *ngIf="company?.valid && (company?.dirty || company?.touched)"
@@ -162,15 +157,15 @@
           />
           <label mdbLabel class="form-label" for="message_input">Message</label>
           <mdb-error
-            *ngIf="company?.invalid && (company?.dirty || company?.touched)"
-            >Company is required</mdb-error
+            *ngIf="message?.invalid && (message?.dirty || message?.touched)"
+            >{{ getMessageErrorMessage() }}</mdb-error
           >
           <mdb-success
-            *ngIf="company?.valid && (company?.dirty || company?.touched)"
+            *ngIf="message?.valid && (message?.dirty || message?.touched)"
             >Looks good!</mdb-success
           >
         </mdb-form-control>
-        <button mdbRipple type="button" class="btn btn-primary btn-block">
+        <button mdbRipple type="submit" class="btn btn-primary btn-block">
           Submit enquiry
         </button>
       </form>
