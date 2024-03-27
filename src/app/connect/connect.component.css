@@ -58,3 +58,7 @@ section {
 fa-icon {
   margin-right: 10px;
 }
+
+.alert {
+  background-color: #fed6dd;
+}

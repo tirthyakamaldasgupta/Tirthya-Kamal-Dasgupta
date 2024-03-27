@@ -25,6 +25,13 @@ interface SocialAccount {
   link: string;
 }
 
+enum EnquiryFormStatus {
+  NotSubmitted,
+  Submitted,
+  SubmissionError,
+  InProgress,
+}
+
 @Component({
   selector: 'app-connect',
   standalone: true,
@@ -68,6 +75,14 @@ export class ConnectComponent implements OnInit {
   ];
 
   enquiryForm!: FormGroup;
+
+  // enquiryFormStatus: EnquiryFormStatus = EnquiryFormStatus.NotSubmitted;
+
+  enquiryFormStatus:
+    | 'NotSubmitted'
+    | 'Submitted'
+    | 'SubmissionError'
+    | 'InProgress' = 'NotSubmitted';
 
   constructor(private enquiryFormService: EnquiryFormService) {}
 
@@ -179,16 +194,22 @@ export class ConnectComponent implements OnInit {
     return errorMessage;
   }
 
-  onSubmit(): boolean {
+  onSubmit(): void {
+    this.enquiryFormStatus = 'InProgress';
+
     this.enquiryFormService.addEnquiry(this.enquiryForm.value).subscribe({
       next: (response) => {
-        console.log(response);
+        this.enquiryFormStatus = 'Submitted';
       },
       error: (error) => {
-        console.error(error);
+        this.enquiryFormStatus = 'SubmissionError';
       },
     });
+  }
 
-    return true;
+  onReset(): void {
+    this.enquiryForm.reset();
+
+    this.enquiryFormStatus = 'NotSubmitted';
   }
 }
