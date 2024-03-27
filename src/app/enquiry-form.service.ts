@@ -12,6 +12,10 @@ interface Enquiry {
   message: string;
 }
 
+interface EnquiryAdditionResponse {
+  message: 'Enquiry added successfully';
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -20,9 +24,9 @@ export class EnquiryFormService {
     'NG_APP_ENQUIRY_FORM_SUBMISSION_ENDPOINT'
   ];
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private http: HttpClient) {}
 
-  submit(enquiry: Enquiry): Observable<any> {
+  addEnquiry(enquiry: Enquiry): Observable<EnquiryAdditionResponse> {
     const currentDate = new Date();
     const localTimestampInEpoch =
       currentDate.getTime() - currentDate.getTimezoneOffset() * 60000;
@@ -33,7 +37,7 @@ export class EnquiryFormService {
       'Content-Type': 'application/json; charset=utf-8',
     });
 
-    return this.httpClient.post(this.enquiryFormSubmissionEndpoint, enquiry, {
+    return this.http.post<EnquiryAdditionResponse>(this.enquiryFormSubmissionEndpoint, enquiry, {
       headers,
     });
   }

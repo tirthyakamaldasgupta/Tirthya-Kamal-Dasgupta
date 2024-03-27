@@ -180,14 +180,14 @@ export class ConnectComponent implements OnInit {
   }
 
   onSubmit(): boolean {
-    this.enquiryFormService.submit(this.enquiryForm.value).subscribe(
-      (response) => {
+    this.enquiryFormService.addEnquiry(this.enquiryForm.value).subscribe({
+      next: (response) => {
         console.log(response);
       },
-      (error) => {
+      error: (error) => {
         console.error(error);
-      }
-    );
+      },
+    });
 
     return true;
   }
