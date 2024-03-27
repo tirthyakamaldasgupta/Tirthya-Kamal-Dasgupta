@@ -1,0 +1,22 @@
+<section>
+  <div class="card text-muted m-3" *ngFor="let blog of blogs">
+    <div class="card-body">
+      <h5 class="card-title">{{ blog.title }}</h5>
+      <small class="text-muted"
+        >{{ blog.datePublished.format("MMM D, YYYY") }},
+        {{ blog.readingTime.humanize() }} read</small
+      >
+      <p class="card-text">{{ blog.preview }}</p>
+      <a
+        *ngFor="let platform of blog.platforms"
+        href="{{ platform.link }}"
+        target="_blank"
+        ><fa-icon
+          [icon]="platform.icon"
+          size="2xl"
+          [ngStyle]="{ color: platform.color }"
+        />
+      </a>
+    </div>
+  </div>
+</section>

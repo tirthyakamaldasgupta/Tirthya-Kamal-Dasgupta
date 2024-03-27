@@ -9,6 +9,7 @@ import {
 } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
+  IconDefinition,
   faGithub,
   faHashnode,
   faLinkedin,
@@ -20,7 +21,7 @@ import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
 import { EnquiryFormService } from '../enquiry-form.service';
 
 interface SocialAccount {
-  icon: any;
+  icon: IconDefinition;
   color: string;
   link: string;
 }
@@ -195,16 +196,18 @@ export class ConnectComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.enquiryFormStatus = 'InProgress';
+    if (this.enquiryForm.valid) {
+      this.enquiryFormStatus = 'InProgress';
 
-    this.enquiryFormService.addEnquiry(this.enquiryForm.value).subscribe({
-      next: (response) => {
-        this.enquiryFormStatus = 'Submitted';
-      },
-      error: (error) => {
-        this.enquiryFormStatus = 'SubmissionError';
-      },
-    });
+      this.enquiryFormService.addEnquiry(this.enquiryForm.value).subscribe({
+        next: (response) => {
+          this.enquiryFormStatus = 'Submitted';
+        },
+        error: (error) => {
+          this.enquiryFormStatus = 'SubmissionError';
+        },
+      });
+    }
   }
 
   onReset(): void {
