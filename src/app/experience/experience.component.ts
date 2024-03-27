@@ -105,7 +105,7 @@ export class ExperienceComponent {
   }
 
   downloadResume = () => {
-    const fileUrl = '/assets/files/Tirthya-Kamal-Dasgupta-Resume.pdf';
+    const fileUrl = '/assets/resumes/Tirthya-Kamal-Dasgupta-Resume.pdf';
     const fileName = 'Tirthya-Kamal-Dasgupta-Resume.pdf';
 
     const link = document.createElement('a');

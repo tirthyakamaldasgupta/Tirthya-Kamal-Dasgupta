@@ -1,4 +1,16 @@
 <section>
+  <div class="float-end">
+    <button
+      type="button"
+      class="btn btn-primary position-end"
+      data-mdb-ripple-init
+      (click)="downloadResume()"
+    >
+      Download resume
+    </button>
+  </div>
+  <br />
+  <br />
   <ul class="timeline" *ngFor="let company of companies">
     <li class="timeline-item mb-5">
       <h5 class="fw-bold">{{ company.name }}</h5>
