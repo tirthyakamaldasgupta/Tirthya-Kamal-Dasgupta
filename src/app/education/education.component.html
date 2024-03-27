@@ -1,0 +1,27 @@
+<section>
+  <ul class="timeline" *ngFor="let institution of institutions">
+    <li class="timeline-item mb-5">
+      <h5 class="fw-bold">{{ institution.name }}</h5>
+      <ul class="timeline" *ngFor="let degree of institution.degrees">
+        <li class="timeline-item mb-5">
+          <h5 class="fw-bold">{{ degree.name }}, {{ degree.fieldOfStudy }}</h5>
+          <p class="text-muted mb-2 fw-bold">
+            {{ degree.startDate.format("MMM YYYY") }} -
+            {{ degree.endDate.format("MMM YYYY") }}
+          </p>
+          <p class="text-muted mb-2 fw-bold" *ngIf="degree.grade">
+            {{ degree.grade }} CGPA
+          </p>
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-mdb-ripple-init
+            (click)="downloadCertificate(institution.name, degree.name)"
+          >
+            Download certificate
+          </button>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</section>
