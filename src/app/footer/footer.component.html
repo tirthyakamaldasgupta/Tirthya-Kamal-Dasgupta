@@ -1,7 +1,55 @@
-<footer class="bg-light text-center fixed-bottom">
-  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05)">
-    Copyright © {{ year }} Tirthya Kamal Dasgupta. All rights reserved.
-    <br>
-    Powered by Angular and MDB and deployed to Vercel
+<footer class="bg-light fixed-bottom">
+  <div class="container">
+    <div class="row pt-3">
+      <div
+        [ngClass]="{
+          'col-xxl-8 col-xl-8 col-lg-8 col-md-7': true,
+          'text-center': isMobileOrTablet
+        }"
+      >
+        Copyright © {{ year }} Tirthya Kamal Dasgupta. All rights reserved.
+      </div>
+      <div
+        [ngClass]="{
+          'social-accounts-col col-xxl-4 col-xl-4 col-lg-4 col-md-5': true,
+          'text-center': isMobileOrTablet,
+          'text-end': !isMobileOrTablet,
+          'pt-2': isMobileOrTablet
+        }"
+      >
+        <a
+          *ngFor="let socialAccount of socialAccounts"
+          href="{{ socialAccount.link }}"
+          target="_blank"
+          ><fa-icon
+            [icon]="socialAccount.icon"
+            size="xl"
+            [ngStyle]="{ color: socialAccount.color }"
+          />
+        </a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <hr class="hr" />
+      </div>
+    </div>
+    <div class="text-center pb-3">
+      Powered by
+      <a href="{{ stackIcons['angularIcon'].link }}" target="_blank"
+        ><fa-icon
+          [icon]="stackIcons['angularIcon'].icon"
+          size="xl"
+          [ngStyle]="{ color: stackIcons['angularIcon'].color }"
+        />
+      </a>and
+      <a href="{{ stackIcons['mdbIcon'].link }}" target="_blank"
+        ><fa-icon
+          [icon]="stackIcons['mdbIcon'].icon"
+          size="xl"
+          [ngStyle]="{ color: stackIcons['mdbIcon'].color }"
+        />
+      </a>
+    </div>
   </div>
 </footer>
