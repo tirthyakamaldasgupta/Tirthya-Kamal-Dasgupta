@@ -18,6 +18,10 @@ interface Items {
 export class NavbarComponent {
   items: Items[] = [
     {
+      label: 'Skills',
+      routerLink: 'skills',
+    },
+    {
       label: 'Experience',
       routerLink: 'experience',
     },
